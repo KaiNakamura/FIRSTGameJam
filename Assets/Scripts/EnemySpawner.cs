@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (counter > spawnRate)
+        if (counter >= spawnRate)
         {
             Vector3 position = this.transform.position;
             float[] spawnLocations = tiles.getSpawnLocations();
