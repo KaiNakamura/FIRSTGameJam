@@ -1,2 +1,6 @@
-/Logs
-*.swp
+/*
+/*/
+
+!.gitignore
+!/Assets/
+!/ProjectSettings/
