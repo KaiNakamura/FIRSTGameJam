@@ -11,7 +11,6 @@ public class Tiles : MonoBehaviour
 
     public Tile[,] tiles;
     public GameObject tile;
-    
 
     void Start()
     {

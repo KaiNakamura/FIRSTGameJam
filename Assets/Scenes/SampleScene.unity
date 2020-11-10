@@ -348,6 +348,7 @@ MonoBehaviour:
   tiles: {fileID: 548908505}
   enemySpawner: {fileID: 1259530784}
   tower: {fileID: 8626916656442908792, guid: 517bba09fab4a40489ec06b358132af2, type: 3}
+  minX: -7.5
 --- !u!4 &1011719633
 Transform:
   m_ObjectHideFlags: 0

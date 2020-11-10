@@ -58,10 +58,26 @@ public class GameManager : MonoBehaviour
                         Enemy currentEnemy = enemySpawner.transform.GetChild(k).gameObject.GetComponent<Enemy>();
                         Collider2D enemyCollider = currentEnemy.GetComponent<Collider2D>();
                         Collider2D towerCollider = currentTower.GetComponent<Collider2D>();
-                        if (enemyCollider.bounds.Intersects(towerCollider.bounds))
+
+                        // If tower collides with enemy, destroy tower and enemy
+                        if (towerCollider.bounds.Intersects(enemyCollider.bounds))
                         {
-                            Destroy(currentEnemy.gameObject);
                             Destroy(currentTower.gameObject);
+                            Destroy(currentEnemy.gameObject);
+                        }
+
+                        // Loop through bullets
+                        for (int l = 0; l < currentTower.transform.childCount; l++)
+                        {
+                            Bullet currentBullet = currentTower.transform.GetChild(l).gameObject.GetComponent<Bullet>();
+                            Collider2D bulletCollider = currentBullet.GetComponent<Collider2D>();
+
+                            // If bullet collides with enemy, destroy bullet and enemy
+                            if (bulletCollider.bounds.Intersects(enemyCollider.bounds))
+                            {
+                                Destroy(currentBullet.gameObject);
+                                Destroy(currentEnemy.gameObject);
+                            }
                         }
                     }
                 }

@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float fireRate = 0.25f;
+    private float counter = 0f;
+
+    public GameObject bullet;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (counter >= fireRate)
+        {
+            Bullet currentBullet = Instantiate(
+                bullet,
+                transform.position,
+                Quaternion.identity
+            ).GetComponent<Bullet>();
+            currentBullet.transform.SetParent(this.transform);
+
+            counter = 0f;
+        }
+
+        counter += Time.deltaTime;
     }
 }

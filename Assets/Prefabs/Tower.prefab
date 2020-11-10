@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8498196556384558305}
   - component: {fileID: 3350905539151398557}
-  - component: {fileID: 7850833012486768997}
+  - component: {fileID: 8389585037864699882}
   - component: {fileID: 6845227613878506307}
   m_Layer: 0
   m_Name: Tower
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7850833012486768997
+--- !u!61 &8389585037864699882
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,3 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f1d8aec01b79c4884ca6acb941e035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireRate: 0.25
+  bullet: {fileID: 139758067687608793, guid: 9f237a3077f3fbf46ac2ad1c5bb9348d, type: 3}
