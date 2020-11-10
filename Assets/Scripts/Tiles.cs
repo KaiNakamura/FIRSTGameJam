@@ -6,15 +6,16 @@ public class Tiles : MonoBehaviour
 {
     public int rows = 6;
     public int cols = 8;
-    
-    private float[] spawnLocations; 
 
-    public GameObject[,] tiles;
+    private float[] spawnLocations;
+
+    public Tile[,] tiles;
     public GameObject tile;
+    
 
     void Start()
     {
-        tiles = new GameObject[rows, cols];
+        tiles = new Tile[rows, cols];
         spawnLocations = new float[rows];
 
         for (int i = 0; i < rows; i++)
@@ -30,7 +31,7 @@ public class Tiles : MonoBehaviour
                 float offsetX = (tileWidth * (cols - 1)) / 2f;
                 float x = j * tileWidth - offsetX;
 
-                Instantiate(
+                Tile currentTile = Instantiate(
                     tile,
                     new Vector3(
                         x,
@@ -38,18 +39,26 @@ public class Tiles : MonoBehaviour
                         0
                     ),
                     Quaternion.identity
-                ).transform.SetParent(this.transform);
+                ).GetComponent<Tile>();
+                currentTile.transform.SetParent(this.transform);
+
+                tiles[i, j] = currentTile;
             }
         }
     }
 
     void Update()
     {
-        
+
     }
-    
-    public float[] getSpawnLocations()
+
+    public Tile[,] GetTiles()
     {
-        return spawnLocations; 
+        return tiles;
+    }
+
+    public float[] GetSpawnLocations()
+    {
+        return spawnLocations;
     }
 }

@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public float spawnRate = 1f;
     private float counter = 0f;
+
     public Tiles tiles;
     public GameObject enemy;
     
@@ -21,8 +22,8 @@ public class EnemySpawner : MonoBehaviour
         if (counter >= spawnRate)
         {
             Vector3 position = this.transform.position;
-            float[] spawnLocations = tiles.getSpawnLocations();
-            Instantiate(
+            float[] spawnLocations = tiles.GetSpawnLocations();
+            Enemy currentEnemy = Instantiate(
                 enemy,
                 new Vector3(
                     position.x,
@@ -30,7 +31,8 @@ public class EnemySpawner : MonoBehaviour
                     position.z
                 ),
                 Quaternion.identity
-            ).transform.SetParent(this.transform);
+            ).GetComponent<Enemy>();
+            currentEnemy.transform.SetParent(this.transform);
 
             counter = 0f;
         }
