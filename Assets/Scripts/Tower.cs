@@ -5,25 +5,32 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    public float fireRate = 0.2f;
-    public int numBullets = 1;
-    public Enums.Direction[] directions;
-    public Enums.BulletBehavhior bulletBehavhior = Enums.BulletBehavhior.NORMAL;
-    public int distance= 1;
+    //Fields unique to 'Tower'
+    public Color color = Constants.NORMAL_COLOR; //TODO: Colors
+    public float fireRate = Constants.NORMAL_FIRE_RATE;
+
+    //Fields neccessary for 'Bullet' 
+    public float speed = Constants.NORMAL_SPEED;
+    public int damage = Constants.NORMAL_DAMAGE;
+    public int distance = Constants.NORMAL_DISTANCE; //Measured in tiles
+    public Constants.Direction[] directions = Constants.NORMAL_DIRECTIONS;
+    public Constants.BulletBehavhior bulletBehavhior = Constants.BulletBehavhior.NORMAL;
+
+
     private float counter = 0f;
 
     public GameObject bullet;
 
     void Start()
     {
-
+        
     }
 
     void Update()
     {
         if (counter >= fireRate)
         {
-            for (int i = 0; i < numBullets; i++)
+            for (int i = 0; i < directions.Length; i++)
             {
                 Bullet currentBullet = Instantiate(
                     bullet,
@@ -31,8 +38,10 @@ public class Tower : MonoBehaviour
                     Quaternion.identity
                 ).GetComponent<Bullet>();
                 currentBullet.transform.SetParent(this.transform);
-                currentBullet.SetDirection(directions[i]);
+                currentBullet.SetSpeed(speed);
+                currentBullet.SetDamage(damage);
                 currentBullet.SetDistance(distance);
+                currentBullet.SetDirection(directions[i]);
                 currentBullet.SetBulletBehavhior(bulletBehavhior);
             }
 

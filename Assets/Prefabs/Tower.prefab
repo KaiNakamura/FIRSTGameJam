@@ -121,9 +121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f1d8aec01b79c4884ca6acb941e035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 1, a: 1}
   fireRate: 1
-  numBullets: 1
-  directions: 02000000
-  bulletBehavhior: 1
+  speed: 5
+  damage: 1
   distance: 1
+  directions: 02000000
+  bulletBehavhior: 0
   bullet: {fileID: 139758067687608793, guid: 9f237a3077f3fbf46ac2ad1c5bb9348d, type: 3}

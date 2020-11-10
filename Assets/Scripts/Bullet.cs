@@ -5,12 +5,14 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 5f;
-    public int damage = 1;
-    public Enums.Direction direction = Enums.Direction.EAST;
-    public Enums.BulletBehavhior bulletBehavhior = Enums.BulletBehavhior.NORMAL;
-    public int distance = 1; //Measured in tiles
+    public int damage;
+    public int distance; //Measured in tiles
+    public Constants.Direction direction;
+    public Constants.BulletBehavhior bulletBehavhior;
+
+    
     public Tile tile;
-    public Tiles tiles;
+    
     private float longevity = 0.2f; //Time to move 1 square (roughly)
 
     private float duration;
@@ -36,54 +38,63 @@ public class Bullet : MonoBehaviour
         }
 
         //Lobbed Shots
-        if (bulletBehavhior == Enums.BulletBehavhior.LOB)
+        if (bulletBehavhior == Constants.BulletBehavhior.LOB)
         {
-            transform.position = MathParabola.Parabola(initPos, endPos, 2f * (distance / (float) Tiles.getCols()), duration / (longevity * distance));
+            transform.position = MathParabola.Parabola(initPos, endPos, 2f * (distance / 8f), duration / (longevity * distance));
             return;
         }
 
 
         //Bullet Directionality
-        if (direction == Enums.Direction.NORTH)
+        if (direction == Constants.Direction.NORTH)
         {
             transform.position = new Vector3(transform.position.x, GetMoveUp(), transform.position.z);
         }
-        else if (direction == Enums.Direction.NORTH_EAST)
+        else if (direction == Constants.Direction.NORTH_EAST)
         {
             transform.position = new Vector3(GetMoveRight(), GetMoveUp(), transform.position.z);
         }
-        else if (direction == Enums.Direction.EAST)
+        else if (direction == Constants.Direction.EAST)
         {
             transform.position = new Vector3(GetMoveRight(), transform.position.y, transform.position.z);
         }
-        else if (direction ==Enums.Direction.SOUTH_EAST)
+        else if (direction == Constants.Direction.SOUTH_EAST)
         {
             transform.position = new Vector3(GetMoveRight(), GetMoveDown(), transform.position.z);
         }
-        else if (direction == Enums.Direction.SOUTH)
+        else if (direction == Constants.Direction.SOUTH)
         {
             transform.position = new Vector3(transform.position.x, GetMoveDown(), transform.position.z);
         }
-        else if (direction == Enums. Direction.SOUTH_WEST)
+        else if (direction == Constants. Direction.SOUTH_WEST)
         {
             transform.position = new Vector3(GetMoveLeft(), GetMoveDown(), transform.position.z);
         }
-        else if (direction == Enums.Direction.WEST)
+        else if (direction == Constants.Direction.WEST)
         {
             transform.position = new Vector3(GetMoveLeft(), transform.position.y, transform.position.z);
         }
-        else if (direction == Enums.Direction.NORTH_WEST)
+        else if (direction == Constants.Direction.NORTH_WEST)
         {
             transform.position = new Vector3(GetMoveLeft(), GetMoveUp(), transform.position.z);
         } 
     }
-    
-    public void SetDirection(Enums.Direction direction)
+
+    public void SetDirection(Constants.Direction direction)
     {
         this.direction = direction;
     }
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+    
+    public void SetDamage(int damage)
+    {
+        this.damage = damage;
+    }
 
-    public void SetBulletBehavhior(Enums.BulletBehavhior bulletBehavhior)
+    public void SetBulletBehavhior(Constants.BulletBehavhior bulletBehavhior)
     {
         this.bulletBehavhior = bulletBehavhior;
     }
