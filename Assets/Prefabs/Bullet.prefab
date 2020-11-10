@@ -121,3 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9ab627a7b9c2145811dbbacd75981b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
+  damage: 1
+  direction: 2
+  bulletBehavhior: 0
+  distance: 1
+  tile: {fileID: 908617458131040175, guid: de1d2b68ff5f6f94aabb1bbe64628d43, type: 3}
+  tiles: {fileID: 0}

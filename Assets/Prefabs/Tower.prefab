@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8389585037864699882}
   - component: {fileID: 6845227613878506307}
   m_Layer: 0
-  m_Name: Tower
+  m_Name: tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,5 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f1d8aec01b79c4884ca6acb941e035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0.25
+  fireRate: 1
+  numBullets: 1
+  directions: 02000000
+  bulletBehavhior: 1
+  distance: 1
   bullet: {fileID: 139758067687608793, guid: 9f237a3077f3fbf46ac2ad1c5bb9348d, type: 3}
