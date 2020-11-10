@@ -50,4 +50,34 @@ public class Tower : MonoBehaviour
 
         counter += Time.deltaTime;
     }
+
+    public void SetFireRate(float fireRate)
+    {
+        this.fireRate = fireRate;
+    }
+
+    public void SetDirections(Constants.Direction[] directions)
+    {
+        this.directions = directions;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
+    public void SetDamage(int damage)
+    {
+        this.damage = damage;
+    }
+
+    public void SetBulletBehavhior(Constants.BulletBehavhior bulletBehavhior)
+    {
+        this.bulletBehavhior = bulletBehavhior;
+    }
+
+    public void SetDistance(int distance)
+    {
+        this.distance = distance;
+    }
 }

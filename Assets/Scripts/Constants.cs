@@ -29,10 +29,16 @@ public class Constants
     public static int VERT_DISTANCE = 1;
 
     //Lob Tower Presets
+    public static Color LOB_COLOR = Color.magenta;
     public static float LOB_FIRE_RATE = 1;
     public static float LOB_SPEED = 5f;
     public static int LOB_DAMAGE = 1;
-    public static Direction[] LOB_DIRECTIONS = new Direction[2] { Direction.NORTH, Direction.SOUTH };
-    public static BulletBehavhior LOB_BULLET_BEHAVHIOR = BulletBehavhior.NORMAL;
-    public static int LOB_DISTANCE = 1;
+    public static Direction[] LOB_DIRECTIONS = new Direction[1] { Direction.EAST };
+    public static BulletBehavhior LOB_BULLET_BEHAVHIOR = BulletBehavhior.LOB;
+    public static int LOB_DISTANCE = 4;
+
+    //Button Constants
+    public static Vector3 NORMAL_BUTTON_POSITION = new Vector3(5f, 4f, 2f);
+    public static Vector3 VERT_BUTTON_POSITION = new Vector3(6.5f, 4f, 2f);
+    public static Vector3 LOB_BUTTON_POSITION = new Vector3(8f, 4f, 2f);
 }

@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        lobDistance = tile.transform.localScale.y * distance;
+        lobDistance = tile.transform.localScale.x * distance;
         initPos = transform.position;
         endPos = new Vector3(initPos.x + lobDistance, initPos.y, initPos.z);
     }
@@ -104,7 +104,7 @@ public class Bullet : MonoBehaviour
         this.distance = distance;
     }
 
-    public float GetMoveUp()
+    private float GetMoveUp()
     {
         return speed * Time.deltaTime + transform.position.y;
     }

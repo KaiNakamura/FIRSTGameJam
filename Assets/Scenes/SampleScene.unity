@@ -347,7 +347,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: {fileID: 548908505}
   enemySpawner: {fileID: 1259530784}
-  tower: {fileID: 8626916656442908792, guid: 517bba09fab4a40489ec06b358132af2, type: 3}
+  tower: {fileID: 6845227613878506307, guid: 517bba09fab4a40489ec06b358132af2, type: 3}
+  button: {fileID: 3649777083259811768, guid: 2a324e0a3a0ac5b47927ecdf740e1446, type: 3}
   minX: -7.5
 --- !u!4 &1011719633
 Transform:
