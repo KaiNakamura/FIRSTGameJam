@@ -347,8 +347,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: {fileID: 548908505}
   enemySpawner: {fileID: 1259530784}
-  tower: {fileID: 6845227613878506307, guid: 517bba09fab4a40489ec06b358132af2, type: 3}
   button: {fileID: 3649777083259811768, guid: 2a324e0a3a0ac5b47927ecdf740e1446, type: 3}
+  lob: {fileID: 7311630269057685090, guid: 6dd9956f23065d24f9b20a84e6b0f489, type: 3}
+  vert: {fileID: 1954476426690651346, guid: 9569cfce355e97e4aad99b34867616a9, type: 3}
+  normal: {fileID: 5054055479522411145, guid: 400865f56d5202e4ba8fd9e2722568ca, type: 3}
   minX: -7.5
 --- !u!4 &1011719633
 Transform:

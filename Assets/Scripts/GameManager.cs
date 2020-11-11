@@ -6,42 +6,68 @@ public class GameManager : MonoBehaviour
 {
     public Tiles tiles;
     public EnemySpawner enemySpawner;
-    public Tower tower;
-    public Button button;
 
+    public Button button;
+    public Tower lob;
+    public Tower vert;
+    public Tower normal;
     private Button normalButton;
     private Button vertButton;
     private Button lobButton;
+    private Tower selectedTower;
 
     public float minX = -7.5f;
-
     void Start()
     {
+        selectedTower = normal;
         normalButton = Instantiate(
             button,
             Constants.NORMAL_BUTTON_POSITION,
             Quaternion.identity
-        ).GetComponent<Button>();
-        normalButton.GetComponent<Renderer>().material.SetColor("_Color", Constants.NORMAL_COLOR);
+        );
+        normalButton.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
 
         vertButton = Instantiate(
             button,
             Constants.VERT_BUTTON_POSITION,
             Quaternion.identity
-        ).GetComponent<Button>();
-        vertButton.GetComponent<Renderer>().material.SetColor("_Color", Constants.VERT_COLOR);
-
+        );
+        vertButton.GetComponent<Renderer>().material.SetColor("_Color", Color.magenta);
         lobButton = Instantiate(
             button,
             Constants.LOB_BUTTON_POSITION,
             Quaternion.identity
-        ).GetComponent<Button>();
-        lobButton.GetComponent<Renderer>().material.SetColor("_Color", Constants.LOB_COLOR);
+        );
+        lobButton.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+    
+    
     }
 
     void Update()
     {
-        // End game
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (normalButton.isMouseOver())
+            {
+                selectedTower = normal;
+                Debug.Log("Selected Tower: Normal");
+                return;
+            }
+            else if (vertButton.isMouseOver())
+            {
+                selectedTower = vert;
+                Debug.Log("Selected Tower: Vert");
+                return;
+            }
+            else if (lobButton.isMouseOver())
+            {
+                selectedTower = lob;
+                Debug.Log("Selected Tower: Lob");
+                return;
+            }
+        }
+
+       // End game
         for (int i = 0; i < enemySpawner.transform.childCount; i++)
         {
             Enemy currentEnemy = enemySpawner.transform.GetChild(i).gameObject.GetComponent<Enemy>();
@@ -93,41 +119,7 @@ public class GameManager : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(0))
-        {
-            if (normalButton.isMouseOver())
-            {
-                Debug.Log("NormalButton");
-                tower.SetFireRate(Constants.NORMAL_FIRE_RATE);
-                tower.SetSpeed(Constants.NORMAL_SPEED);
-                tower.SetDamage(Constants.NORMAL_DAMAGE);
-                tower.SetDistance(Constants.NORMAL_DISTANCE);
-                tower.SetDirections(Constants.NORMAL_DIRECTIONS);
-                tower.SetBulletBehavhior(Constants.NORMAL_BULLET_BEHAVHIOR);
-                return;
-            }
-            else if (vertButton.isMouseOver())
-            {
-                Debug.Log("VertButton");
-                tower.SetFireRate(Constants.VERT_FIRE_RATE);
-                tower.SetSpeed(Constants.VERT_SPEED);
-                tower.SetDamage(Constants.VERT_DAMAGE);
-                tower.SetDistance(Constants.VERT_DISTANCE);
-                tower.SetDirections(Constants.VERT_DIRECTIONS);
-                tower.SetBulletBehavhior(Constants.VERT_BULLET_BEHAVHIOR);
-                return;
-            }
-            else if (lobButton.isMouseOver())
-            {
-                Debug.Log("LobButton");
-                tower.SetFireRate(Constants.LOB_FIRE_RATE);
-                tower.SetSpeed(Constants.LOB_SPEED);
-                tower.SetDamage(Constants.LOB_DAMAGE);
-                tower.SetDistance(Constants.LOB_DISTANCE);
-                tower.SetDirections(Constants.LOB_DIRECTIONS);
-                tower.SetBulletBehavhior(Constants.LOB_BULLET_BEHAVHIOR);
-                return;
-            }
-
+        { 
             // Place towers
             for (int i = 0; i < tiles.rows; i++)
             {
@@ -137,7 +129,7 @@ public class GameManager : MonoBehaviour
                     if (currentTile.isMouseOver() && currentTile.GetTower() == null)
                     {
                         Tower currentTower = Instantiate(
-                            tower,
+                            selectedTower,
                             new Vector3(
                                 currentTile.transform.position.x,
                                 currentTile.transform.position.y,
@@ -151,11 +143,6 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-
-        }
-
-
-
-        
+        }    
     }
 }
