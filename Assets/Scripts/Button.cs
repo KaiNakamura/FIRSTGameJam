@@ -13,13 +13,11 @@ public class Button : MonoBehaviour
     void OnMouseEnter()
     {
         mouseOver = true;
-        Debug.Log(mouseOver + ", Mouse Enter");
     }
 
     void OnMouseExit()
     {
         mouseOver = false;
-        Debug.Log(mouseOver + ", MouseExit");
     }
 
     public bool isMouseOver()

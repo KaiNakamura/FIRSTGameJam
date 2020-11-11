@@ -8,18 +8,22 @@ public abstract class Tower : MonoBehaviour
     public GameObject bullet;
     public float runTime = 0;
     
-    public void BaseUpdate()
+    public virtual void Update()
     {
         runTime += Time.deltaTime;
-        if (runTime >= fireRate)
+        
+        // Fire a bullet
+        if (runTime >= 1 / fireRate)
         {
             Bullet currentBullet = Shoot();
             runTime = 0f;
         }
     }
 
+    // Create 'Bullet' Game Object
     public virtual Bullet Shoot()
     {
+        // Create bullet Game Object
         Bullet currentBullet = Instantiate(
             bullet,
             transform.position,

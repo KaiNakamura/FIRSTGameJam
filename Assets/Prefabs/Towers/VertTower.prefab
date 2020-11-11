@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43306d4e48721641b4f3f5d502dcc0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0.2
-  bullet: {fileID: 0}
+  fireRate: 5
+  bullet: {fileID: 139758067687608793, guid: 9f237a3077f3fbf46ac2ad1c5bb9348d, type: 3}
   runTime: 0
-  bullets:
-  - {fileID: 3307543793564272249, guid: add3e5162e7732c4d830310d83ce0ebd, type: 3}
-  - {fileID: 4652003626559567342, guid: 2821903313e8df44e8dc1ab9eb97e236, type: 3}
+  velocities:
+  - {x: 0, y: 5, z: 0}
+  - {x: 0, y: -5, z: 0}
+  lifespan: 0.2
 --- !u!1001 &1474079317507072675
 PrefabInstance:
   m_ObjectHideFlags: 0

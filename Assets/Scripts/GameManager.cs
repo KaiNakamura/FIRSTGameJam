@@ -13,12 +13,12 @@ public class GameManager : MonoBehaviour
     public Tower normal;
     private Button normalButton;
     private Button vertButton;
-    private Button lobButton;
-    private Tower selectedTower;
+    private Tower selectedTower; // Selected tower that the Game Manager places 
 
     public float minX = -7.5f;
     void Start()
     {
+        // Create buttons
         selectedTower = normal;
         normalButton = Instantiate(
             button,
@@ -33,36 +33,21 @@ public class GameManager : MonoBehaviour
             Quaternion.identity
         );
         vertButton.GetComponent<Renderer>().material.SetColor("_Color", Color.magenta);
-        lobButton = Instantiate(
-            button,
-            Constants.LOB_BUTTON_POSITION,
-            Quaternion.identity
-        );
-        lobButton.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-    
-    
     }
 
     void Update()
     {
+        // Change selected tower 
         if (Input.GetMouseButtonDown(0))
         {
             if (normalButton.isMouseOver())
             {
                 selectedTower = normal;
-                Debug.Log("Selected Tower: Normal");
                 return;
             }
             else if (vertButton.isMouseOver())
             {
                 selectedTower = vert;
-                Debug.Log("Selected Tower: Vert");
-                return;
-            }
-            else if (lobButton.isMouseOver())
-            {
-                selectedTower = lob;
-                Debug.Log("Selected Tower: Lob");
                 return;
             }
         }

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ed710708e807354ab62f358cec9f55b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0.2
-  bullet: {fileID: 4245134987518893616, guid: a7b087701e7b9a84cb763429f306a23c, type: 3}
+  fireRate: 5
+  bullet: {fileID: 139758067687608793, guid: 9f237a3077f3fbf46ac2ad1c5bb9348d, type: 3}
   runTime: 0
+  velocity: {x: 5, y: 0, z: 0}
+  lifespan: 0.2
 --- !u!1001 &4432127131737770914
 PrefabInstance:
   m_ObjectHideFlags: 0

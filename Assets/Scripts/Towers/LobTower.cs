@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LobTower : Tower
 {
-    void Update()
+    public override void Update()
     {
-        base.BaseUpdate();
+        base.Update();
     }
 }
