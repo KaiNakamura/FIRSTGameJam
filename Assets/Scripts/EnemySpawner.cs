@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public float spawnRate = 0.25f;
+    public float increaseSpawnRate = 0.1f;
     private float counter = 0f;
 
     public Tiles tiles;
@@ -37,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         counter += Time.deltaTime;
-        spawnRate += Time.deltaTime * 0.5f;
+        spawnRate += Time.deltaTime * increaseSpawnRate;
 
     }
 }
