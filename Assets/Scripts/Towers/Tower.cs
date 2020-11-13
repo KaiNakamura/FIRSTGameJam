@@ -4,9 +4,12 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
+    public int cost;
     public float fireRate;
     public GameObject bullet;
     public float runTime = 0;
+
+    private bool mouseOver;
     
     public virtual void Update()
     {
@@ -31,5 +34,21 @@ public abstract class Tower : MonoBehaviour
         ).GetComponent<Bullet>();
         currentBullet.transform.SetParent(this.transform);
         return currentBullet;
+    }
+
+    public void OnMouseEnter()
+    {
+        Debug.Log("YEKJ");
+        mouseOver = true;
+    }
+
+    public void OnMouseExit()
+    {
+        mouseOver = false;
+    }
+
+    public bool isMouseOver()
+    {
+        return mouseOver;
     }
 }

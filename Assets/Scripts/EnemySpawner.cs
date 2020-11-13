@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Threading;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public float spawnRate = 1f;
+    public float spawnRate = 0.25f;
     private float counter = 0f;
 
     public Tiles tiles;
@@ -19,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (counter >= spawnRate)
+        if (counter >= 1 / spawnRate)
         {
             Vector3 position = this.transform.position;
             float[] spawnLocations = tiles.GetSpawnLocations();
@@ -38,5 +37,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         counter += Time.deltaTime;
+        spawnRate += Time.deltaTime * 0.5f;
+
     }
 }

@@ -1,64 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public Tiles tiles;
     public EnemySpawner enemySpawner;
-
-    public Button button;
-    public Tower lob;
-    public Tower vert;
-    public Tower normal;
+    public Tower defaultTower;
+    public HealthDisplay healthBar;
+    public int health = 30;
+    public MoneyDisplay moneyDisplay;
+    public int money = 50;
     private Button normalButton;
     private Button vertButton;
+    private Button delButton;
+    private protected enum Mode { PLACE_TOWER, REMOVE_TOWER };
+    private Mode selectedMode;
     private Tower selectedTower; // Selected tower that the Game Manager places 
 
     public float minX = -7.5f;
+    
     void Start()
     {
-        // Create buttons
-        selectedTower = normal;
-        normalButton = Instantiate(
-            button,
-            Constants.NORMAL_BUTTON_POSITION,
-            Quaternion.identity
-        );
-        normalButton.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
-
-        vertButton = Instantiate(
-            button,
-            Constants.VERT_BUTTON_POSITION,
-            Quaternion.identity
-        );
-        vertButton.GetComponent<Renderer>().material.SetColor("_Color", Color.magenta);
+        selectedTower = defaultTower;
+        selectedMode = Mode.PLACE_TOWER;
     }
 
     void Update()
     {
-        // Change selected tower 
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (normalButton.isMouseOver())
-            {
-                selectedTower = normal;
-                return;
-            }
-            else if (vertButton.isMouseOver())
-            {
-                selectedTower = vert;
-                return;
-            }
-        }
 
-       // End game
+        // End game
         for (int i = 0; i < enemySpawner.transform.childCount; i++)
         {
             Enemy currentEnemy = enemySpawner.transform.GetChild(i).gameObject.GetComponent<Enemy>();
             if (currentEnemy.transform.position.x < minX)
             {
-                // TODO: remove health/end game
+                health--;
                 Destroy(currentEnemy.gameObject);
             }
         }
@@ -96,6 +74,7 @@ public class GameManager : MonoBehaviour
                             {
                                 Destroy(currentBullet.gameObject);
                                 Destroy(currentEnemy.gameObject);
+                                money++;
                             }
                         }
                     }
@@ -104,30 +83,64 @@ public class GameManager : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(0))
-        { 
-            // Place towers
-            for (int i = 0; i < tiles.rows; i++)
+        {
+            if ((selectedMode == Mode.PLACE_TOWER && selectedTower.cost <= money) || selectedMode == Mode.REMOVE_TOWER)
             {
-                for (int j = 0; j < tiles.cols; j++)
+                // Place towers
+                for (int i = 0; i < tiles.rows; i++)
                 {
-                    Tile currentTile = tiles.GetTiles()[i, j];
-                    if (currentTile.isMouseOver() && currentTile.GetTower() == null)
+                    for (int j = 0; j < tiles.cols; j++)
                     {
-                        Tower currentTower = Instantiate(
-                            selectedTower,
-                            new Vector3(
-                                currentTile.transform.position.x,
-                                currentTile.transform.position.y,
-                                -1
-                            ),
-                            Quaternion.identity
-                        ).GetComponent<Tower>();
-                        currentTower.transform.SetParent(currentTile.transform);
-                        currentTile.SetTower(currentTower);
-                        return;
+                        Tile currentTile = tiles.GetTiles()[i, j];
+                        Tower currentTower = currentTile.GetTower();
+                        if (currentTile.isMouseOver())
+                        {
+                            if (selectedMode == Mode.PLACE_TOWER && currentTower == null)
+                            {
+                                Debug.Log("Placing Tower");
+                                currentTower = Instantiate(
+                                selectedTower,
+                                    new Vector3(
+                                        currentTile.transform.position.x,
+                                        currentTile.transform.position.y,
+                                        -1
+                                    ),
+                                    Quaternion.identity
+                                ).GetComponent<Tower>();
+                                currentTower.transform.SetParent(currentTile.transform);
+                                currentTile.SetTower(currentTower);
+                                money -= selectedTower.cost;
+
+                                return;
+                            }
+                            else if (currentTower == null)
+                            {
+                                return;
+                            }
+                            else if (selectedMode == Mode.REMOVE_TOWER && currentTile.isMouseOver())
+                            {
+                                Destroy(currentTower.gameObject);
+                                money += (int)((float) currentTower.cost * 0.8f);
+                                return;
+                            }
+                        }
                     }
                 }
             }
-        }    
+        }
+        moneyDisplay.SetMoney(money);
+        healthBar.SetHealth(health);
+    }
+    public void DeleteMode()
+    {
+        Debug.Log("Delete Mode");
+        selectedMode = Mode.REMOVE_TOWER; 
+    }
+
+    public void SetSelectedTower(Tower tower)
+    {
+        Debug.Log("Selecting " + tower);
+        selectedMode = Mode.PLACE_TOWER;
+        selectedTower = tower;
     }
 }
