@@ -56,6 +56,11 @@ public class Tiles : MonoBehaviour
         return tiles;
     }
 
+    static public int getCols()
+    {
+        return 8;
+    }
+
     public float[] GetSpawnLocations()
     {
         return spawnLocations;

@@ -3,7 +3,13 @@ guid: 43f48cf20ff6b5f4c954ec772b2ccf6b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tiles: {instanceID: 0}
+  - enemySpawner: {instanceID: 0}
+  - tower: {fileID: 8626916656442908792, guid: 517bba09fab4a40489ec06b358132af2, type: 3}
+  - normalButton: {instanceID: 0}
+  - vertButton: {instanceID: 0}
+  - lobButton: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -2,18 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Universal script for every bullet
 public class Bullet : MonoBehaviour
 {
-    public float speed = 5f;
-    public int damage = 1;
+    [HideInInspector]
+    public int damage;
+    [HideInInspector]
+    public float lifespan;
+    [HideInInspector]
+    public Vector3 velocity;
+    [HideInInspector]
+    public float runTime = 0;
 
-    void Start()
+    public virtual void Update()
     {
+        // Destroy bullet at end of lifetime
+        runTime += Time.deltaTime;
 
-    }
+        if (runTime >= lifespan)
+        {
+            Destroy(this.gameObject);
+        }
 
-    void Update()
-    {
-        transform.position = new Vector3(speed * Time.deltaTime + transform.position.x, transform.position.y, transform.position.z);
+        // Add velocity to the position
+        transform.position = transform.position + velocity * Time.deltaTime;
     }
 }
