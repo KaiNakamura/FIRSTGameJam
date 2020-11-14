@@ -1,16 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Enemy : MonoBehaviour
+public class Enemy : NetworkBehaviour
 {
     public float speed = 1f;
     public int damage = 1;
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {

@@ -1,97 +1,59 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
+using System.Net;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
-    public Tiles tiles;
-    public EnemySpawner enemySpawner;
-
-    public GameObject tower;
-
     public float minX = -7.5f;
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
-        // Place towers
-        if (Input.GetMouseButtonDown(0))
+        Tile[] tiles = FindObjectsOfType<Tile>();
+        Tower[] towers = FindObjectsOfType<Tower>();
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Bullet[] bullets = FindObjectsOfType<Bullet>();
+
+        // Remove enemies
+        for (int i = 0; i < enemies.Length; i++)
         {
-            for (int i = 0; i < tiles.rows; i++)
+            Enemy enemy = enemies[i];
+
+            // Loop through bullets
+            for (int j = 0; j < bullets.Length; j++)
             {
-                for (int j = 0; j < tiles.cols; j++)
+                Bullet bullet = bullets[j];
+
+                // If enemy collides bullet, remove bullet and enemy
+                if (enemy.GetComponent<Collider2D>().bounds.Intersects(bullet.GetComponent<Collider2D>().bounds))
                 {
-                    Tile currentTile = tiles.GetTiles()[i, j];
-                    if (currentTile.isMouseOver() && currentTile.GetTower() == null)
-                    {
-                        Tower currentTower = Instantiate(
-                            tower,
-                            new Vector3(
-                                currentTile.transform.position.x,
-                                currentTile.transform.position.y,
-                                -1
-                            ),
-                            Quaternion.identity
-                        ).GetComponent<Tower>();
-                        currentTower.transform.SetParent(currentTile.transform);
-                        currentTile.SetTower(currentTower);
-                    }
+                    Destroy(enemy.gameObject);
+                    Destroy(bullet.gameObject);
                 }
             }
-        }
 
-        // Remove towers
-        for (int i = 0; i < tiles.rows; i++)
-        {
-            for (int j = 0; j < tiles.cols; j++)
+            // Loop through towers
+            for (int j = 0; j < towers.Length; j++)
             {
-                Tile currentTile = tiles.GetTiles()[i, j];
-                Tower currentTower = currentTile.GetTower();
-                if (currentTower != null)
+                Tower tower = towers[j];
+
+                // If enemy collides tower, remove tower
+                if (enemy.GetComponent<Collider2D>().bounds.Intersects(tower.GetComponent<Collider2D>().bounds))
                 {
-                    for (int k = 0; k < enemySpawner.transform.childCount; k++)
-                    {
-                        Enemy currentEnemy = enemySpawner.transform.GetChild(k).gameObject.GetComponent<Enemy>();
-                        Collider2D enemyCollider = currentEnemy.GetComponent<Collider2D>();
-                        Collider2D towerCollider = currentTower.GetComponent<Collider2D>();
-
-                        // If tower collides with enemy, destroy tower and enemy
-                        if (towerCollider.bounds.Intersects(enemyCollider.bounds))
-                        {
-                            Destroy(currentTower.gameObject);
-                            Destroy(currentEnemy.gameObject);
-                        }
-
-                        // Loop through bullets
-                        for (int l = 0; l < currentTower.transform.childCount; l++)
-                        {
-                            Bullet currentBullet = currentTower.transform.GetChild(l).gameObject.GetComponent<Bullet>();
-                            Collider2D bulletCollider = currentBullet.GetComponent<Collider2D>();
-
-                            // If bullet collides with enemy, destroy bullet and enemy
-                            if (bulletCollider.bounds.Intersects(enemyCollider.bounds))
-                            {
-                                Destroy(currentBullet.gameObject);
-                                Destroy(currentEnemy.gameObject);
-                            }
-                        }
-                    }
+                    Destroy(tower.gameObject);
                 }
             }
         }
 
         // End game
-        for (int i = 0; i < enemySpawner.transform.childCount; i++)
+        for (int i = 0; i < enemies.Length; i++)
         {
-            Enemy currentEnemy = enemySpawner.transform.GetChild(i).gameObject.GetComponent<Enemy>();
-            if (currentEnemy.transform.position.x < minX)
+            Enemy enemy = enemies[i];
+            if (enemy.transform.position.x < minX)
             {
                 // TODO: remove health/end game
-                Destroy(currentEnemy.gameObject);
+                Destroy(enemy.gameObject);
             }
         }
     }

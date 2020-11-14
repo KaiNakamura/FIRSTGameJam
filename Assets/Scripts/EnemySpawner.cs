@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading;
 using UnityEngine;
+using Mirror;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : NetworkBehaviour
 {
     public float spawnRate = 1f;
     private float counter = 0f;
 
-    public Tiles tiles;
-    public GameObject enemy;
+    public GameObject enemyGameObject;
     
-    void Start()
+    public override void OnStartServer()
     {
-        tiles = (Tiles) GameObject.Find("Tiles").GetComponent(typeof(Tiles));
+        counter = 0f;
     }
 
     void Update()
@@ -22,17 +22,18 @@ public class EnemySpawner : MonoBehaviour
         if (counter >= spawnRate)
         {
             Vector3 position = this.transform.position;
-            float[] spawnLocations = tiles.GetSpawnLocations();
-            Enemy currentEnemy = Instantiate(
-                enemy,
+            TileSpawner tileSpawner = FindObjectOfType<TileSpawner>();
+            Enemy enemy = Instantiate(
+                enemyGameObject,
                 new Vector3(
                     position.x,
-                    spawnLocations[Random.Range(0, spawnLocations.Length)],
+                    tileSpawner.spawnLocations[Random.Range(0, tileSpawner.spawnLocations.Length)],
                     position.z
                 ),
                 Quaternion.identity
             ).GetComponent<Enemy>();
-            currentEnemy.transform.SetParent(this.transform);
+
+            NetworkServer.Spawn(enemy.gameObject);
 
             counter = 0f;
         }

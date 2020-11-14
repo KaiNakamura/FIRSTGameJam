@@ -1,18 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Tower : MonoBehaviour
+public class Tower : NetworkBehaviour
 {
     public float fireRate = 0.25f;
     private float counter = 0f;
 
     public GameObject bullet;
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -23,7 +19,7 @@ public class Tower : MonoBehaviour
                 transform.position,
                 Quaternion.identity
             ).GetComponent<Bullet>();
-            currentBullet.transform.SetParent(this.transform);
+            // currentBullet.transform.SetParent(this.transform);
 
             counter = 0f;
         }
